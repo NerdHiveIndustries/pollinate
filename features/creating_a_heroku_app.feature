@@ -1,8 +1,8 @@
 @disable-bundler
-Feature: Creating a Heroku app when suspending a project
+Feature: Creating a Heroku app when pollinating a project
 
   Scenario: User uses the --heroku=true command line argument
-    When I suspend a project called "test_project" with:
+    When I pollinate a project called "test_project" with:
       | argument | value |
       | --heroku | true  |
     Then the "test_project-staging" heroku app should exist

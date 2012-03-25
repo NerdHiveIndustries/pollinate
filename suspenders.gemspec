@@ -1,19 +1,19 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "suspenders/version"
+require "pollinate/version"
 
 Gem::Specification.new do |s|
-  s.name     = 'suspenders'
-  s.version  = Suspenders::VERSION
+  s.name     = 'pollinate'
+  s.version  = pollinate::VERSION
   s.date     = Date.today.strftime('%Y-%m-%d')
-  s.authors  = ["thoughtbot"]
-  s.email    = 'support@thoughtbot.com'
-  s.homepage = 'http://github.com/thoughtbot/suspenders'
+  s.authors  = ["nerdhiveindustries"]
+  s.email    = 'support@nerdhiveindustries.com'
+  s.homepage = 'http://github.com/nerdhiveindustries/pollinate'
 
-  s.summary     = "Generate a Rails app using thoughtbot's best practices."
+  s.summary     = "Generate a Rails app using nerdhiveindustries's best practices."
   s.description = <<-HERE
-Suspenders is a base Rails project that you can upgrade. It is used by
-thoughtbot to get a jump start on a working app. Use Suspenders if you're in a
+pollinate is a base Rails project that you can upgrade. It is used by
+NerdHive Industries to get a jump start on a working app. Use pollinate if you're in a
 rush to build something amazing; don't use it if you like missing deadlines.
   HERE
 

@@ -1,8 +1,8 @@
 @disable-bundler
-Feature: Rake works in the suspended project
+Feature: Rake works in the pollinated project
 
-  Scenario: Running rake in the suspended project
-    When I suspend a project called "test_project"
+  Scenario: Running rake in the pollinated project
+    When I pollinate a project called "test_project"
     And I cd to the "test_project" root
     When I drop and create the required databases
     And I run the rake task "db:create"
@@ -13,7 +13,7 @@ Feature: Rake works in the suspended project
 
   Scenario: Making a spec then running rake
     When I drop and create the required databases
-    And I suspend a project called "test_project"
+    And I pollinate a project called "test_project"
     And I generate "model post title:string"
     And I run the rake task "db:migrate"
     And I run the rake task "db:test:prepare"

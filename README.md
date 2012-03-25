@@ -1,19 +1,17 @@
-# Suspenders [![Build Status](https://secure.travis-ci.org/thoughtbot/suspenders.png?branch=master)](http://travis-ci.org/thoughtbot/suspenders)
+# Pollinate
 
-Suspenders is the base Rails application used at [thoughtbot](http://thoughtbot.com/community).
-
-  ![Suspenders boy](http://media.tumblr.com/1TEAMALpseh5xzf0Jt6bcwSMo1_400.png)
+Pollinate is the base Rails application used at [NerdHive Industries](http://nerdhiveindustries.com/community).
 
 Installation
 ------------
 
-First install the suspenders gem:
+First install the pollinate gem:
 
-    gem install suspenders
+    gem install pollinate
 
 Then run:
 
-    suspenders projectname
+    pollinate projectname
 
 This will create a Rails 3.1 app in `projectname`. This script creates a new
 new git repository. It is not meant to be used against an existing repo.
@@ -21,8 +19,8 @@ new git repository. It is not meant to be used against an existing repo.
 Gemfile
 -------
 
-To see the latest and greatest gems, look at Suspenders'
-[template/Gemfile_additions](https://github.com/thoughtbot/suspenders/blob/master/templates/Gemfile_additions),
+To see the latest and greatest gems, look at Pollinate'
+[template/Gemfile_additions](https://github.com/thoughtbot/pollinate/blob/master/templates/Gemfile_additions),
 which will be appended to the default generated projectname/Gemfile.
 
 It includes application gems like:
@@ -36,7 +34,7 @@ It includes application gems like:
 
 And testing gems like:
 
-* [Cucumber, Capybara, and Capybara Webkit](http://robots.thoughtbot.com/post/4583605733/capybara-webkit) for integration testing, including Javascript behavior
+* [Cucumber, Capybara, and Capybara Webkit](http://robots.nerdhiveindustries.com/post/4583605733/capybara-webkit) for integration testing, including Javascript behavior
 * [RSpec](https://github.com/rspec/rspec) for awesome, readable isolation testing
 * [Factory Girl](https://github.com/thoughtbot/factory_girl) for easier creation of test data
 * [Shoulda Matchers](http://github.com/thoughtbot/shoulda-matchers) for frequently needed Rails and RSpec matchers
@@ -47,7 +45,7 @@ And testing gems like:
 Other goodies
 -------------
 
-Suspenders also comes with:
+Pollinate also comes with:
 
 * [jQuery](https://github.com/jquery/jquery) for Javascript pleasantry
 * Rails' flashes set up and in application layout.
@@ -58,7 +56,7 @@ Heroku
 
 You can optionally create Heroku staging and production apps:
 
-    suspenders app --heroku true
+    pollinate app --heroku true
 
 This has the same effect as running:
 
@@ -70,18 +68,18 @@ Clearance
 
 You can optionally not include Clearance:
 
-    suspenders app --clearance false
+    pollinate app --clearance false
 
 Dependencies
 ------------
 
-Some gems included in Suspenders have native extensions. You should have GCC installed on your
-machine before generating an app with Suspenders.
+Some gems included in Pollinate have native extensions. You should have GCC installed on your
+machine before generating an app with Pollinate.
 
 If you're running OS X, we recommend the [GCC OSX installer](https://github.com/kennethreitz/osx-gcc-installer).
 
 We use [Capybara Webkit](https://github.com/thoughtbot/capybara-webkit) for full-stack Javascript integration testing.
-It requires you have QT installed on your machine before running Suspenders.
+It requires you have QT installed on your machine before running Pollinate.
 
 Instructions for installing QT on most systems are [available here](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-QT).
 
@@ -90,7 +88,7 @@ PostgreSQL needs to be installed and running for the `db:create` rake task.
 Issues
 ------
 
-If you have problems, please create a [Github issue](https://github.com/thoughtbot/suspenders/issues).
+If you have problems, please create a [Github issue](https://github.com/nerdhiveindustries/pollinate/issues).
 
 Contributing
 ------------
@@ -100,13 +98,13 @@ Please see CONTRIBUTING.md for details.
 Credits
 -------
 
-![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
+![nerdhiveindustries](http://nerdhiveindustries.com/images/tm/logo.png)
 
-Suspenders is maintained and funded by [thoughtbot, inc](http://thoughtbot.com/community)
+Pollinate is maintained and funded by [NerdHive Industries LLC](http://nerdhiveindustries.com/community)
 
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
+The names and logos for NerdHive Industries are trademarks of NerdHive Industries LLC.
 
 License
 -------
 
-Suspenders is Copyright © 2008-2011 thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+Pollinate is Copyright © 2012 nerdhiveindustries. It is free software, and may be redistributed under the terms specified in the LICENSE file.
