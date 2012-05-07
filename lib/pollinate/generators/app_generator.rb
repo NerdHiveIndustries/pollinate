@@ -13,9 +13,6 @@ module Pollinate
     class_option :heroku, :type => :boolean, :aliases => "-H", :default => false,
                           :desc => "Create staging and production heroku apps"
 
-    class_option :clearance, :type => :boolean, :aliases => "-C", :default => true,
-                             :desc => "Add the clearance Rails authentication library"
-
     def finish_template
       invoke :pollinate_customization
       super
@@ -27,18 +24,22 @@ module Pollinate
       invoke :setup_staging_environment
       invoke :create_pollinate_views
       invoke :create_common_javascripts
-      invoke :add_jquery_ui
       invoke :setup_database
       invoke :customize_gemfile
       invoke :configure_app
       invoke :setup_stylesheets
       invoke :copy_miscellaneous_files
-      invoke :setup_root_route
+      # invoke :setup_root_route
       invoke :set_active_record_whitelist_attributes
       invoke :setup_git
       invoke :create_heroku_apps
       invoke :outro
     end
+
+    # def setup_root_route
+    #   say "Setting up a root route"
+    #   build(:setup_root_route)
+    # end
 
     def remove_files_we_dont_need
       build(:remove_public_index)
@@ -68,25 +69,12 @@ module Pollinate
       build(:create_common_javascripts)
     end
 
-    def add_jquery_ui
-      say "Add jQuery ui to the standard application.js"
-      build(:add_jquery_ui)
-    end
-
     def setup_database
       say "Setting up database"
       if 'postgresql' == options[:database]
         build(:use_postgres_config_template)
       end
       build(:create_database)
-    end
-
-    def customize_gemfile
-      build(:include_custom_gems)
-      if options[:clearance]
-        build(:add_clearance_gem)
-      end
-      bundle_command('install')
     end
 
     def configure_app
@@ -98,17 +86,25 @@ module Pollinate
       build(:install_factory_girl_steps)
       build(:add_email_validator)
       build(:setup_default_rake_task)
-      build(:setup_clearance)
+      build(:setup_bootstrap)
+      build(:setup_devise)
     end
 
-    def setup_clearance
-      if options[:clearance]
-        build(:generate_clearance)
-        build(:include_clearance_matchers)
-        if using_active_record?
-          build(:set_attr_accessibles_on_user)
-        end
-      end
+    def customize_gemfile
+      build(:remove_sass)
+      build(:include_custom_gems)
+      build(:add_bootstrap_gem)
+      build(:add_slim_gem)
+      build(:add_devise_gem)
+      bundle_command('install')
+    end
+
+    def setup_bootstrap
+      build(:generate_bootstrap)
+    end
+
+    def setup_devise
+      build(:generate_devise)
     end
 
     def setup_stylesheets
@@ -141,11 +137,6 @@ module Pollinate
     def copy_miscellaneous_files
       say "Copying miscellaneous support files"
       build(:copy_miscellaneous_files)
-    end
-
-    def setup_root_route
-      say "Setting up a root route"
-      build(:setup_root_route)
     end
 
     def set_active_record_whitelist_attributes

@@ -6,4 +6,4 @@ coverage/*
 rerun.txt
 tags
 !.keep
-vendor/bundler_gems
+vendor/bundle

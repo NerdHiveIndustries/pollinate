@@ -1,12 +1,8 @@
 gem 'thin'
-gem 'sass'
 gem 'high_voltage'
 gem 'paperclip'
 gem 'formtastic'
-gem 'flutie'
-gem 'bourbon'
 gem 'copycopter_client'
-gem 'airbrake'
 
 group :development do
   gem "heroku"
@@ -16,6 +12,10 @@ group :development, :test do
   gem "rspec-rails", "~> 2.6.1"
   gem "ruby-debug19"
   gem "sham_rack"
+  gem 'hpricot'
+  gem 'ruby_parser'
+  gem 'erb2haml'
+  gem 'haml2slim'
 end
 
 group :test do

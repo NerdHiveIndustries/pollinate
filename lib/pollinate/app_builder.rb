@@ -18,6 +18,10 @@ module Pollinate
       replace_in_file "config/environments/development.rb", "raise_delivery_errors = false", "raise_delivery_errors = true"
     end
 
+    def remove_sass
+      replace_in_file "Gemfile", "gem 'sass-rails',   '~> 3.2.3'", ""
+    end
+
     def setup_staging_environment
       run "cp config/environments/production.rb config/environments/staging.rb"
     end
@@ -42,10 +46,6 @@ module Pollinate
 
     def create_common_javascripts
       directory "javascripts", "app/assets/javascripts"
-    end
-
-    def add_jquery_ui
-      inject_into_file "app/assets/javascripts/application.js", "//= require jquery-ui\n", :before => "//= require_tree ."
     end
 
     def use_postgres_config_template
@@ -91,20 +91,15 @@ module Pollinate
                        :before => %{Capybara.default_selector = :css}
     end
 
-    def generate_clearance
-      generate "clearance:install"
-      generate "clearance:features"
-    end
-
     def install_factory_girl_steps
       copy_file "factory_girl_steps.rb", "features/step_definitions/factory_girl_steps.rb"
     end
 
     def setup_stylesheets
-      copy_file "app/assets/stylesheets/application.css", "app/assets/stylesheets/application.css.scss"
-      remove_file "app/assets/stylesheets/application.css"
-      concat_file "import_scss_styles", "app/assets/stylesheets/application.css.scss"
-      create_file "app/assets/stylesheets/_screen.scss"
+      # copy_file "app/assets/stylesheets/application.css", "app/assets/stylesheets/application.css.scss"
+      # remove_file "app/assets/stylesheets/application.css"
+      # concat_file "import_scss_styles", "app/assets/stylesheets/application.css.scss"
+      # create_file "app/assets/stylesheets/_screen.scss"
     end
 
     def gitignore_files
@@ -155,26 +150,12 @@ module Pollinate
       copy_file "Procfile"
     end
 
-    def setup_root_route
-      route "root :to => 'Clearance::Sessions#new'"
-    end
-
     def set_active_record_whitelist_attributes
       inject_into_class "config/application.rb", "Application", "    config.active_record.whitelist_attributes = true\n"
     end
 
-    def set_attr_accessibles_on_user
-      inject_into_file "app/models/user.rb",
-        "  attr_accessible :email, :password\n",
-        :after => /include Clearance::User\n/
-    end
-
     def add_email_validator
       copy_file "email_validator.rb", "app/validators/email_validator.rb"
-    end
-
-    def include_clearance_matchers
-      create_file "spec/support/clearance.rb", "require 'clearance/testing'"
     end
 
     def setup_default_rake_task
@@ -183,8 +164,49 @@ module Pollinate
       end
     end
 
-    def add_clearance_gem
-      inject_into_file("Gemfile", "\ngem 'clearance'", :after => /gem 'jquery-rails'/)
+    def add_bootstrap_gem
+      inject_into_file("Gemfile", "\ngem 'twitter-bootstrap-rails'", :after => /group :assets do/)
     end
+
+    def add_devise_gem
+      inject_into_file("Gemfile", "\ngem 'devise'", :after => /gem 'jquery-rails'/)
+    end
+
+    def add_slim_gem
+      inject_into_file("Gemfile", "\ngem 'slim'", :after => /gem 'jquery-rails'/)
+    end
+
+    def generate_bootstrap
+      generate "bootstrap:install"
+    end
+
+    def generate_devise
+      generate "devise:install"
+      # generate "devise User"
+      # generate "devise Admin"
+      # generate "devise:views -e erb users"
+      # generate "devise:views -e erb admins"
+      # run "for i in `find app/views/devise -name '*.erb'` ; do html2haml -e $i ${i%erb}haml ; rm $i ; done"
+      # run "for i in `find app/views/devise -name '*.haml'` ; do haml2slim $i ${i%haml}slim ; done"
+      # run "for i in `find app/views/devise -name '*.haml'` ; do rm $i ; done"
+    end
+
+    # def setup_root_route
+      # route "root :to => 'Clearance::Sessions#new'"
+    # end
+
+    # def set_attr_accessibles_on_user
+    #   inject_into_file "app/models/user.rb",
+    #     "  attr_accessible :email, :password\n",
+    #     :after => /include Clearance::User\n/
+    # end
+
+    # def include_clearance_matchers
+    #   create_file "spec/support/clearance.rb", "require 'clearance/testing'"
+    # end
+
+    # def add_clearance_gem
+    #   inject_into_file("Gemfile", "\ngem 'clearance'", :after => /gem 'jquery-rails'/)
+    # end
   end
 end
