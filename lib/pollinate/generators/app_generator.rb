@@ -1,7 +1,7 @@
 require 'rails/generators'
 require 'rails/generators/rails/app/app_generator'
 
-module Suspenders
+module Pollinate
   class Generator < Rails::Generators::AppGenerator
     # let's use postgres by default
     class_option :database,       :type => :string, :aliases => "-d", :default => "postgresql",
@@ -17,15 +17,15 @@ module Suspenders
                              :desc => "Add the clearance Rails authentication library"
 
     def finish_template
-      invoke :suspenders_customization
+      invoke :pollinate_customization
       super
     end
 
-    def suspenders_customization
+    def pollinate_customization
       invoke :remove_files_we_dont_need
       invoke :setup_development_environment
       invoke :setup_staging_environment
-      invoke :create_suspenders_views
+      invoke :create_pollinate_views
       invoke :create_common_javascripts
       invoke :add_jquery_ui
       invoke :setup_database
@@ -55,8 +55,8 @@ module Suspenders
       build(:setup_staging_environment)
     end
 
-    def create_suspenders_views
-      say "Creating suspenders views"
+    def create_pollinate_views
+      say "Creating pollinate views"
       build(:create_views_shared)
       build(:create_shared_flashes)
       build(:create_shared_javascripts)
@@ -156,8 +156,7 @@ module Suspenders
     end
 
     def outro
-      say "Congratulations! You just pulled our suspenders."
-      say "Remember to run 'rails generate airbrake' with your API key."
+      say "Congratulations! You just helped us pollinate."
     end
 
     def run_bundle
@@ -167,7 +166,7 @@ module Suspenders
     protected
 
     def get_builder_class
-      Suspenders::AppBuilder
+      Pollinate::AppBuilder
     end
 
     def using_active_record?

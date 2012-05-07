@@ -108,3 +108,5 @@ License
 -------
 
 Pollinate is Copyright © 2012 nerdhiveindustries. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+
+Pollinate is a derived work based on the Suspenders project [Copyright (c) 2010 Mike Burns] (https://raw.github.com/thoughtbot/suspenders/master/LICENSE)

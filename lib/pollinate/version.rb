@@ -1,3 +1,3 @@
-module Suspenders
+module Pollinate
   VERSION = '0.3.2'
 end

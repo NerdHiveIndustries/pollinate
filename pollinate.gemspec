@@ -3,16 +3,16 @@ $:.push File.expand_path("../lib", __FILE__)
 require "pollinate/version"
 
 Gem::Specification.new do |s|
-  s.name     = 'pollinate'
-  s.version  = pollinate::VERSION
+  s.name     = 'Pollinate'
+  s.version  = Pollinate::VERSION
   s.date     = Date.today.strftime('%Y-%m-%d')
-  s.authors  = ["nerdhiveindustries"]
+  s.authors  = ["NerdHive Industries LLC"]
   s.email    = 'support@nerdhiveindustries.com'
   s.homepage = 'http://github.com/nerdhiveindustries/pollinate'
 
-  s.summary     = "Generate a Rails app using nerdhiveindustries's best practices."
+  s.summary     = "Generate a Rails app using NerdHive Industries' best practices."
   s.description = <<-HERE
-pollinate is a base Rails project that you can upgrade. It is used by
+Pollinate is a base Rails project that you can upgrade. It is used by
 NerdHive Industries to get a jump start on a working app. Use pollinate if you're in a
 rush to build something amazing; don't use it if you like missing deadlines.
   HERE
@@ -27,8 +27,8 @@ rush to build something amazing; don't use it if you like missing deadlines.
   s.rdoc_options = ["--charset=UTF-8"]
   s.extra_rdoc_files = %w[README.md LICENSE]
 
-  s.add_dependency('rails', '3.1.1')
-  s.add_dependency('bundler', '>= 1.0.7')
+  s.add_dependency('rails', '3.2.3')
+  s.add_dependency('bundler', '>= 1.1.2')
 
   s.add_development_dependency('cucumber', '~> 1.1.0')
   s.add_development_dependency('aruba', '~> 0.4.6')

@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require File.expand_path(File.join('..', 'lib', 'pollinate', 'generators', 'app_generator'), File.dirname(__FILE__))
+require File.expand_path(File.join('..', 'lib', 'pollinate', 'actions'), File.dirname(__FILE__))
+require File.expand_path(File.join('..', 'lib', 'pollinate', 'app_builder'), File.dirname(__FILE__))
+
+templates_root = File.expand_path(File.join("..", "templates"), File.dirname(__FILE__))
+Pollinate::Generator.source_root templates_root
+Pollinate::Generator.source_paths << Rails::Generators::AppGenerator.source_root << templates_root
+
+Pollinate::Generator.start

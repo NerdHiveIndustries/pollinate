@@ -1,6 +1,6 @@
-module Suspenders
+module Pollinate
   class AppBuilder < Rails::AppBuilder
-    include Suspenders::Actions
+    include Pollinate::Actions
 
     def readme
       copy_file "README.md"
@@ -35,7 +35,7 @@ module Suspenders
     end
 
     def create_application_layout
-      template "suspenders_layout.html.erb.erb",
+      template "pollinate_layout.html.erb.erb",
                "app/views/layouts/application.html.erb",
                :force => true
     end
@@ -108,7 +108,7 @@ module Suspenders
     end
 
     def gitignore_files
-      concat_file "suspenders_gitignore", ".gitignore"
+      concat_file "pollinate_gitignore", ".gitignore"
       ["app/models",
         "app/views/pages",
         "db/migrate",
@@ -130,7 +130,7 @@ module Suspenders
     def init_git
       run "git init"
       run "git add -A ."
-      run "git commit -m 'Initial commit - suspended project'"
+      run "git commit -m 'Initial commit - pollinated project'"
     end
 
     def create_heroku_apps
