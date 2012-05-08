@@ -11,7 +11,7 @@ module Pollinate
     end
 
     def remove_public_images_rails
-      remove_file 'public/images/rails.png'
+      remove_file 'app/assets/images/rails.png'
     end
 
     def raise_delivery_errors
@@ -48,6 +48,10 @@ module Pollinate
       directory "javascripts", "app/assets/javascripts"
     end
 
+    def create_bundler_config
+      directory ".bundle", ".bundle"
+    end
+
     def use_postgres_config_template
       template "postgresql_database.yml.erb", "config/database.yml", :force => true
     end
@@ -80,7 +84,7 @@ module Pollinate
 
     def generate_rspec
       generate "rspec:install"
-      replace_in_file "spec/spec_helper.rb", "mock_with :rspec", "mock_with :mocha"
+      replace_in_file "spec/spec_helper.rb", "# config.mock_with :mocha", "config.mock_with :mocha"
     end
 
     def generate_cucumber
@@ -148,6 +152,8 @@ module Pollinate
       copy_file "errors.rb", "config/initializers/errors.rb"
       copy_file "time_formats.rb", "config/initializers/time_formats.rb"
       copy_file "Procfile"
+      copy_file "Capfile", "Capfile"
+      copy_file "Guardfile", "Guardfile"
     end
 
     def set_active_record_whitelist_attributes
@@ -173,7 +179,7 @@ module Pollinate
     end
 
     def add_slim_gem
-      inject_into_file("Gemfile", "\ngem 'slim'", :after => /gem 'jquery-rails'/)
+      inject_into_file("Gemfile", "\ngem 'slim-rails'", :after => /gem 'jquery-rails'/)
     end
 
     def generate_bootstrap
@@ -187,8 +193,7 @@ module Pollinate
       # generate "devise:views -e erb users"
       # generate "devise:views -e erb admins"
       # run "for i in `find app/views/devise -name '*.erb'` ; do html2haml -e $i ${i%erb}haml ; rm $i ; done"
-      # run "for i in `find app/views/devise -name '*.haml'` ; do haml2slim $i ${i%haml}slim ; done"
-      # run "for i in `find app/views/devise -name '*.haml'` ; do rm $i ; done"
+      # run "for i in `find app/views/devise -name '*.haml'` ; do haml2slim $i ${i%haml}slim ; rm $i ; done"
     end
 
     # def setup_root_route

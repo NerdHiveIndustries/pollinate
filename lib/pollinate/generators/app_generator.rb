@@ -72,9 +72,9 @@ module Pollinate
     def setup_database
       say "Setting up database"
       if 'postgresql' == options[:database]
-        build(:use_postgres_config_template)
+        # build(:use_postgres_config_template)
       end
-      build(:create_database)
+      # build(:create_database)
     end
 
     def configure_app
@@ -83,6 +83,8 @@ module Pollinate
       build(:configure_action_mailer)
       build(:generate_rspec)
       build(:generate_cucumber)
+      build(:generate_bootstrap)
+      build(:generate_devise)
       build(:install_factory_girl_steps)
       build(:add_email_validator)
       build(:setup_default_rake_task)
@@ -96,15 +98,8 @@ module Pollinate
       build(:add_bootstrap_gem)
       build(:add_slim_gem)
       build(:add_devise_gem)
+      build(:create_bundler_config)
       bundle_command('install')
-    end
-
-    def setup_bootstrap
-      build(:generate_bootstrap)
-    end
-
-    def setup_devise
-      build(:generate_devise)
     end
 
     def setup_stylesheets
