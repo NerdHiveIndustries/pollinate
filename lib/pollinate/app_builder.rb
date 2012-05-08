@@ -14,6 +14,19 @@ module Pollinate
       remove_file 'app/assets/images/rails.png'
     end
 
+    def configure_gemset
+      gemset_script = <<-RUBY
+        local name="${PWD##*/}"
+        local ruby_version=`rvm-prompt v p`
+        izafunction = `type rvm | head -n 1`
+        if("izafunction" == 'rvm is a function') then;
+          rvm --create --rvmrc use $ruby_version@$name
+          rvm rvmrc trust
+        fi
+      RUBY
+      run "gemset_script"
+    end
+
     def raise_delivery_errors
       replace_in_file "config/environments/development.rb", "raise_delivery_errors = false", "raise_delivery_errors = true"
     end

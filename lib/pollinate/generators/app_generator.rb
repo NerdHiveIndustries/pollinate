@@ -99,6 +99,7 @@ module Pollinate
       build(:add_slim_gem)
       build(:add_devise_gem)
       build(:create_bundler_config)
+      build(:configure_gemset)
       bundle_command('install')
     end
 
