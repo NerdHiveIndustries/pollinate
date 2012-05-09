@@ -16,15 +16,23 @@ module Pollinate
 
     def configure_gemset
       gemset_script = <<-RUBY
-        local name="${PWD##*/}"
-        local ruby_version=`rvm-prompt v p`
-        izafunction = `type rvm | head -n 1`
-        if("izafunction" == 'rvm is a function') then;
-          rvm --create --rvmrc use $ruby_version@$name
-          rvm rvmrc trust
-        fi
+      #!/usr/bin/env bash
+      if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+        source "$HOME/.rvm/scripts/rvm"
+      elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+        source "/usr/local/rvm/scripts/rvm"
+      fi
+      izafunction=`type rvm | head -n 1`
+      if [ "$izafunction" == 'rvm is a function' ]; then
+        name="#{app_name}"
+        ruby_version=`rvm-prompt v p`
+        rvm --create --rvmrc use $ruby_version@$name
+        rvm rvmrc trust
+      fi
       RUBY
-      run "gemset_script"
+      File.open("create_gemset.sh", "w+") {|file| file.write("#{gemset_script}") }
+      system("bash create_gemset.sh")
+      File.delete("create_gemset.sh")
     end
 
     def raise_delivery_errors
@@ -125,13 +133,10 @@ module Pollinate
         "app/views/pages",
         "db/migrate",
         "log",
-        "public/images",
         "spec/support",
         "spec/lib",
         "spec/models",
-        "spec/views",
         "spec/controllers",
-        "spec/helpers",
         "spec/support/matchers",
         "spec/support/mixins",
         "spec/support/shared_examples"].each do |dir|
@@ -201,12 +206,11 @@ module Pollinate
 
     def generate_devise
       generate "devise:install"
-      # generate "devise User"
-      # generate "devise Admin"
-      # generate "devise:views -e erb users"
-      # generate "devise:views -e erb admins"
-      # run "for i in `find app/views/devise -name '*.erb'` ; do html2haml -e $i ${i%erb}haml ; rm $i ; done"
-      # run "for i in `find app/views/devise -name '*.haml'` ; do haml2slim $i ${i%haml}slim ; rm $i ; done"
+      generate "devise User"
+      generate "devise Admin"
+      generate "devise:views -e erb"
+      run "for i in `find app/views/devise -name '*.erb'` ; do html2haml -e $i ${i%erb}haml ; rm $i ; done"
+      run "for i in `find app/views/devise -name '*.haml'` ; do haml2slim $i ${i%haml}slim ; rm $i ; done"
     end
 
     # def setup_root_route
@@ -221,10 +225,6 @@ module Pollinate
 
     # def include_clearance_matchers
     #   create_file "spec/support/clearance.rb", "require 'clearance/testing'"
-    # end
-
-    # def add_clearance_gem
-    #   inject_into_file("Gemfile", "\ngem 'clearance'", :after => /gem 'jquery-rails'/)
     # end
   end
 end

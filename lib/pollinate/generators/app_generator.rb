@@ -72,9 +72,9 @@ module Pollinate
     def setup_database
       say "Setting up database"
       if 'postgresql' == options[:database]
-        # build(:use_postgres_config_template)
+        build(:use_postgres_config_template)
       end
-      # build(:create_database)
+      build(:create_database)
     end
 
     def configure_app
