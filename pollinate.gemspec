@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors  = ["NerdHive Industries LLC"]
   s.email    = 'support@nerdhiveindustries.com'
   s.homepage = 'http://github.com/nerdhiveindustries/pollinate'
-
   s.summary     = "Generate a Rails app using NerdHive Industries' best practices."
+
   s.description = <<-HERE
 Pollinate is a base Rails project that you can upgrade. It is used by
 NerdHive Industries to get a jump start on a working app. Use pollinate if you're in a

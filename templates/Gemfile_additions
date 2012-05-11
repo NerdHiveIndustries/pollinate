@@ -1,13 +1,19 @@
 gem 'thin'
+gem 'annotate'
+gem 'slim-rails'
 gem 'high_voltage'
 gem 'paperclip'
 gem 'formtastic'
-gem 'copycopter_client'
+gem 'ember-rails', '>= 0.4'
 
 group :development do
   gem 'heroku'
   gem 'capistrano'
   gem 'capistrano_colors'
+  gem 'hpricot'
+  gem 'ruby_parser'
+  gem 'erb2haml'
+  gem 'haml2slim'
 end
 
 group :development, :test do
@@ -16,10 +22,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'ruby-debug19'
   gem 'sham_rack'
-  gem 'hpricot'
-  gem 'ruby_parser'
-  gem 'erb2haml'
-  gem 'haml2slim'
 end
 
 group :test do

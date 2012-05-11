@@ -87,6 +87,14 @@ module Pollinate
       inject_into_file("Gemfile", "\n#{new_gems}", :after => /gem 'jquery-rails'/)
     end
 
+    def add_bootstrap_gem
+      inject_into_file("Gemfile", "\ngem 'twitter-bootstrap-rails'", :after => /group :assets do/)
+    end
+
+    def add_devise_gem
+      inject_into_file("Gemfile", "\ngem 'devise'", :after => /gem 'jquery-rails'/)
+    end
+
     def configure_rspec
       generators_config = <<-RUBY
           config.generators do |generate|
@@ -103,12 +111,12 @@ module Pollinate
       action_mailer_host "production",  "#{app_name}.com"
     end
 
-    def generate_rspec
+    def install_rspec
       generate "rspec:install"
       replace_in_file "spec/spec_helper.rb", "# config.mock_with :mocha", "config.mock_with :mocha"
     end
 
-    def generate_cucumber
+    def install_cucumber
       generate "cucumber:install", "--rspec", "--capybara"
       inject_into_file "features/support/env.rb",
                        %{Capybara.save_and_open_page_path = 'tmp'\n} +
@@ -133,6 +141,9 @@ module Pollinate
         "app/views/pages",
         "db/migrate",
         "log",
+        "tmp/pids",
+        "tmp/sessions",
+        "tmp/sockets",
         "spec/support",
         "spec/lib",
         "spec/models",
@@ -172,6 +183,8 @@ module Pollinate
       copy_file "Procfile"
       copy_file "Capfile", "Capfile"
       copy_file "Guardfile", "Guardfile"
+      copy_file ".rspec", ".rspec"
+      copy_file "deploy.rb", "config/deploy.rb"
     end
 
     def set_active_record_whitelist_attributes
@@ -188,23 +201,15 @@ module Pollinate
       end
     end
 
-    def add_bootstrap_gem
-      inject_into_file("Gemfile", "\ngem 'twitter-bootstrap-rails'", :after => /group :assets do/)
-    end
-
-    def add_devise_gem
-      inject_into_file("Gemfile", "\ngem 'devise'", :after => /gem 'jquery-rails'/)
-    end
-
-    def add_slim_gem
-      inject_into_file("Gemfile", "\ngem 'slim-rails'", :after => /gem 'jquery-rails'/)
-    end
-
-    def generate_bootstrap
+    def install_bootstrap
       generate "bootstrap:install"
     end
 
-    def generate_devise
+    def install_formtastic
+      generate "formtastic:install"
+    end
+
+    def install_devise
       generate "devise:install"
       generate "devise User"
       generate "devise Admin"
