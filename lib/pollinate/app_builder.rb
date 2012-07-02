@@ -39,34 +39,17 @@ module Pollinate
       replace_in_file "config/environments/development.rb", "raise_delivery_errors = false", "raise_delivery_errors = true"
     end
 
-    def remove_sass
-      replace_in_file "Gemfile", "gem 'sass-rails',   '~> 3.2.3'", ""
-    end
-
     def setup_staging_environment
       run "cp config/environments/production.rb config/environments/staging.rb"
     end
 
-    def create_views_shared
-      empty_directory "app/views/shared"
-    end
-
-    def create_shared_flashes
-      copy_file "_flashes.html.erb", "app/views/shared/_flashes.html.erb"
-    end
-
-    def create_shared_javascripts
-      copy_file "_javascript.html.erb", "app/views/shared/_javascript.html.erb"
-    end
-
     def create_application_layout
-      template "pollinate_layout.html.erb.erb",
-               "app/views/layouts/application.html.erb",
+      directory "layouts", "app/views/layouts",
                :force => true
-    end
 
-    def create_common_javascripts
-      directory "javascripts", "app/assets/javascripts"
+      # template "pollinate_layout.html.erb.erb",
+      #          "app/views/layouts/application.html.erb",
+      #          :force => true
     end
 
     def create_bundler_config
@@ -88,7 +71,7 @@ module Pollinate
     end
 
     def add_bootstrap_gem
-      inject_into_file("Gemfile", "\ngem 'twitter-bootstrap-rails'", :after => /group :assets do/)
+      inject_into_file("Gemfile", "\ngem 'less-rails'\ngem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'\ngem 'therubyracer', :platform => :ruby\ngem 'libv8', '~> 3.11.8'", :after => /group :assets do/)
     end
 
     def add_devise_gem
@@ -126,13 +109,6 @@ module Pollinate
 
     def install_factory_girl_steps
       copy_file "factory_girl_steps.rb", "features/step_definitions/factory_girl_steps.rb"
-    end
-
-    def setup_stylesheets
-      # copy_file "app/assets/stylesheets/application.css", "app/assets/stylesheets/application.css.scss"
-      # remove_file "app/assets/stylesheets/application.css"
-      # concat_file "import_scss_styles", "app/assets/stylesheets/application.css.scss"
-      # create_file "app/assets/stylesheets/_screen.scss"
     end
 
     def gitignore_files
@@ -212,15 +188,16 @@ module Pollinate
     def install_devise
       generate "devise:install"
       generate "devise User"
-      generate "devise Admin"
       generate "devise:views -e erb"
       run "for i in `find app/views/devise -name '*.erb'` ; do html2haml -e $i ${i%erb}haml ; rm $i ; done"
       run "for i in `find app/views/devise -name '*.haml'` ; do haml2slim $i ${i%haml}slim ; rm $i ; done"
     end
 
-    # def setup_root_route
-      # route "root :to => 'Clearance::Sessions#new'"
-    # end
+    def setup_root_route
+      copy_file "home_controller.rb", "app/controllers/home_controller.rb"
+      directory "home", "app/views/home"
+      route "root :to => 'home#index'"
+    end
 
     # def set_attr_accessibles_on_user
     #   inject_into_file "app/models/user.rb",

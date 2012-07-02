@@ -23,23 +23,21 @@ module Pollinate
       invoke :setup_development_environment
       invoke :setup_staging_environment
       invoke :create_pollinate_views
-      invoke :create_common_javascripts
       invoke :setup_database
       invoke :customize_gemfile
       invoke :configure_app
-      invoke :setup_stylesheets
       invoke :copy_miscellaneous_files
-      # invoke :setup_root_route
+      invoke :setup_root_route
       invoke :set_active_record_whitelist_attributes
       invoke :setup_git
       invoke :create_heroku_apps
       invoke :outro
     end
 
-    # def setup_root_route
-    #   say "Setting up a root route"
-    #   build(:setup_root_route)
-    # end
+    def setup_root_route
+      say "Setting up a root route"
+      build(:setup_root_route)
+    end
 
     def remove_files_we_dont_need
       build(:remove_public_index)
@@ -58,15 +56,7 @@ module Pollinate
 
     def create_pollinate_views
       say "Creating pollinate views"
-      build(:create_views_shared)
-      build(:create_shared_flashes)
-      build(:create_shared_javascripts)
       build(:create_application_layout)
-    end
-
-    def create_common_javascripts
-      say "Pulling in some common javascripts"
-      build(:create_common_javascripts)
     end
 
     def setup_database
@@ -89,23 +79,15 @@ module Pollinate
       build(:install_factory_girl_steps)
       build(:add_email_validator)
       build(:setup_default_rake_task)
-      build(:setup_bootstrap)
-      build(:setup_devise)
     end
 
     def customize_gemfile
-      build(:remove_sass)
       build(:include_custom_gems)
       build(:add_bootstrap_gem)
       build(:add_devise_gem)
       build(:create_bundler_config)
       build(:configure_gemset)
       bundle_command('install')
-    end
-
-    def setup_stylesheets
-      say "Set up stylesheets"
-      build(:setup_stylesheets)
     end
 
     def setup_git

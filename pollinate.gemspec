@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name     = 'Pollinate'
   s.version  = Pollinate::VERSION
   s.date     = Date.today.strftime('%Y-%m-%d')
-  s.authors  = ["NerdHive Industries LLC"]
+  s.authors  = ["NerdHive Industries, LLC"]
   s.email    = 'support@nerdhiveindustries.com'
   s.homepage = 'http://github.com/nerdhiveindustries/pollinate'
   s.summary     = "Generate a Rails app using NerdHive Industries' best practices."

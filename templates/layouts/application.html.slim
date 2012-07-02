@@ -1,0 +1,49 @@
+| <!doctype html>
+html
+  head
+    meta charset="utf-8"
+    meta name="ROBOTS" content="NOODP"
+    meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
+    /* meta content="width=(device-width,)initial-scale=1.0" name="viewport"*/
+    title= content_for?(:title) ? yield(:title) : "TAG 401k Advantage"
+    meta content="" name="description"
+    meta content="" name="author"
+    = stylesheet_link_tag    "application", :media => "all"
+    = csrf_meta_tags
+    = yield(:head)
+  body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          = render 'layouts/navigation'
+    #main role="main"
+      .container
+        .content
+          .row
+            .span12
+              = render 'layouts/messages'
+          .row
+            .span12
+              img src="https://www.tag401kadvantage.com/images/401kadvantagelogo1.gif"
+          .row
+            .span12
+              = yield
+        /! /row
+        hr
+        footer
+        p= "&copy; %{Time.now.year}"
+      /! /content
+    /! /container
+    /!
+      | Javascripts
+      | \==================================================
+    /! Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+
+    = yield :javascript
+
+    if Rails.env.test?
+      = javascript_tag do
+        $.ajaxSetup({ async: false });
+      end
+    end

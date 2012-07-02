@@ -2,9 +2,12 @@ gem 'thin'
 gem 'annotate'
 gem 'slim-rails'
 gem 'high_voltage'
-gem 'paperclip'
-gem 'formtastic'
+gem 'paperclip', github: 'thoughtbot/paperclip'
+gem "formtastic", "~> 2.1.0"
+gem 'formtastic-bootstrap', github: 'cgunther/formtastic-bootstrap', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
+gem 'bootstrap-datepicker-rails', github: 'Nerian/bootstrap-datepicker-rails'
 gem 'ember-rails', '>= 0.4'
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 
 group :development do
   gem 'heroku'
