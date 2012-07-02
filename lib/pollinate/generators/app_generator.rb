@@ -3,7 +3,7 @@ require 'rails/generators/rails/app/app_generator'
 
 module Pollinate
   class Generator < Rails::Generators::AppGenerator
-    include Pollinate::Actions
+    # include Pollinate::Actions
     # let's use postgres by default
     class_option :database,       :type => :string, :aliases => "-d", :default => "postgresql",
                                   :desc => "Preconfigure for selected database (options: #{DATABASES.join('/')})"
@@ -13,6 +13,11 @@ module Pollinate
 
     class_option :heroku, :type => :boolean, :aliases => "-H", :default => false,
                           :desc => "Create staging and production heroku apps"
+
+    def bundle_run(command)
+      say_status :run, "bundle #{command}"
+      system "#{Gem.ruby} #{Gem.bin_path('bundler', 'bundle')} #{command}"
+    end
 
     def finish_template
       invoke :pollinate_customization
