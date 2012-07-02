@@ -24,14 +24,11 @@ html
               = render 'layouts/messages'
           .row
             .span12
-              img src="https://www.tag401kadvantage.com/images/401kadvantagelogo1.gif"
-          .row
-            .span12
               = yield
         /! /row
         hr
         footer
-        p= "&copy; %{Time.now.year}"
+        p= raw'&copy; ' + "#{Time.now.year}"
       /! /content
     /! /container
     /!
@@ -42,8 +39,6 @@ html
 
     = yield :javascript
 
-    if Rails.env.test?
-      = javascript_tag do
-        $.ajaxSetup({ async: false });
-      end
-    end
+    =  if Rails.env.test?
+         = javascript_tag do
+           '$.ajaxSetup({ async: false });'

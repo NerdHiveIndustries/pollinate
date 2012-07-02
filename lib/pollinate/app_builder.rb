@@ -44,6 +44,7 @@ module Pollinate
     end
 
     def create_application_layout
+      remove_file 'app/views/layouts/application.html.erb'
       directory "layouts", "app/views/layouts",
                :force => true
 
@@ -64,6 +65,10 @@ module Pollinate
       bundle_command('exec rake db:create')
     end
 
+    def migrate_database
+      bundle_command('exec rake db:migrate')
+    end
+
     def include_custom_gems
       additions_path = find_in_source_paths 'Gemfile_additions'
       new_gems = File.open(additions_path).read
@@ -71,7 +76,7 @@ module Pollinate
     end
 
     def add_bootstrap_gem
-      inject_into_file("Gemfile", "\ngem 'less-rails'\ngem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'\ngem 'therubyracer', :platform => :ruby\ngem 'libv8', '~> 3.11.8'", :after => /group :assets do/)
+      inject_into_file("Gemfile", "\ngem 'less-rails'\ngem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails'", :after => /group :assets do/)
     end
 
     def add_devise_gem
@@ -159,7 +164,7 @@ module Pollinate
       copy_file "Procfile"
       copy_file "Capfile", "Capfile"
       copy_file "Guardfile", "Guardfile"
-      copy_file ".rspec", ".rspec"
+      copy_file ".rspec", ".rspec", :force => true
       copy_file "deploy.rb", "config/deploy.rb"
     end
 

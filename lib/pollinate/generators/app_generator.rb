@@ -23,9 +23,10 @@ module Pollinate
       invoke :setup_development_environment
       invoke :setup_staging_environment
       invoke :create_pollinate_views
-      invoke :setup_database
       invoke :customize_gemfile
+      invoke :setup_database
       invoke :configure_app
+      invoke :migrate_database
       invoke :copy_miscellaneous_files
       invoke :setup_root_route
       invoke :set_active_record_whitelist_attributes
@@ -67,6 +68,11 @@ module Pollinate
       build(:create_database)
     end
 
+    def migrate_database
+      say "Migrating database"
+      build(:migrate_database)
+    end
+
     def configure_app
       say "Configuring app"
       build(:configure_rspec)
@@ -87,11 +93,15 @@ module Pollinate
       build(:add_devise_gem)
       build(:create_bundler_config)
       build(:configure_gemset)
-      bundle_command('install')
+      bundle_install
+    end
+
+    def bundle_install
+      system "#{Gem.ruby} #{Gem.bin_path('bundler', 'bundle')} install"
     end
 
     def setup_git
-      say "Initializing git and initial commit"
+      say "Initializing git and performing initial commit"
       invoke :setup_gitignore
       invoke :init_git
     end
