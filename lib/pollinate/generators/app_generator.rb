@@ -3,6 +3,7 @@ require 'rails/generators/rails/app/app_generator'
 
 module Pollinate
   class Generator < Rails::Generators::AppGenerator
+    include Pollinate::Actions
     # let's use postgres by default
     class_option :database,       :type => :string, :aliases => "-d", :default => "postgresql",
                                   :desc => "Preconfigure for selected database (options: #{DATABASES.join('/')})"
