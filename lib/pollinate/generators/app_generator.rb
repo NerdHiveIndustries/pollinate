@@ -77,7 +77,9 @@ module Pollinate
       say "Configuring app"
       build(:configure_rspec)
       build(:configure_action_mailer)
+      build(:configure_default_includes)
       build(:install_rspec)
+      build(:install_ember)
       build(:install_cucumber)
       build(:install_bootstrap)
       build(:install_formtastic)

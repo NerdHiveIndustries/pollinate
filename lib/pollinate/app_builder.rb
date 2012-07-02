@@ -47,10 +47,6 @@ module Pollinate
       remove_file 'app/views/layouts/application.html.erb'
       directory "layouts", "app/views/layouts",
                :force => true
-
-      # template "pollinate_layout.html.erb.erb",
-      #          "app/views/layouts/application.html.erb",
-      #          :force => true
     end
 
     def create_bundler_config
@@ -83,6 +79,11 @@ module Pollinate
       inject_into_file("Gemfile", "\ngem 'devise'", :after => /gem 'jquery-rails'/)
     end
 
+    def configure_default_includes
+      replace_in_file "app/assets/stylesheets/application.css", "*= require require_tree .\n", ''
+      replace_in_file "app/assets/javascripts/application.js", "//= require require_tree .\n", ''
+    end
+
     def configure_rspec
       generators_config = <<-RUBY
           config.generators do |generate|
@@ -102,6 +103,18 @@ module Pollinate
     def install_rspec
       generate "rspec:install"
       replace_in_file "spec/spec_helper.rb", "# config.mock_with :mocha", "config.mock_with :mocha"
+    end
+
+    def install_ember
+      generate "ember:bootstrap -g"
+    end
+
+    def install_tabulous
+      generate "tabs"
+      inject_into_file("app/tabs/tabulous.rb", "config.active_tab_clickable = true", :after => "# config.css.inactive_text_color = '#888'\n")
+      inject_into_file("app/tabs/tabulous.rb", "config.bootstrap_style_subtabs = true", :after => "# config.css.inactive_text_color = '#888'\n")
+      inject_into_file("app/tabs/tabulous.rb", "config.tabs_ul_class = \"nav nav-pills\"", :after => "# config.css.inactive_text_color = '#888'\n")
+      inject_into_file("app/tabs/tabulous.rb", "config.css.scaffolding = false", :after => "# config.css.inactive_text_color = '#888'\n")
     end
 
     def install_cucumber
@@ -184,10 +197,16 @@ module Pollinate
 
     def install_bootstrap
       generate "bootstrap:install"
+      inject_into_file("app/assets/stylesheets/application.css", "*= require bootstrap_and_overrides\n", :after => "*= require_self\n")
+      inject_into_file("app/assets/javascripts/application.js", "//= require bootstrap.js.coffee\n", :after => "//= require twitter/bootstrap\n")
     end
 
     def install_formtastic
       generate "formtastic:install"
+      inject_into_file("config/initializers/formtastic.rb", "Formtastic::Helpers::FormHelper.builder = FormtasticBootstrap::FormBuilder\n", :after => "# Formtastic::Helpers::FormHelper.builder = MyCustomBuilder\n")
+      inject_into_file("app/assets/stylesheets/application.css", "*= require formtastic-bootstrap\n", :after => "*= require_self\n")
+      inject_into_file("app/assets/stylesheets/application.css", "*= require bootstrap-datepicker\n", :after => "*= require_self\n")
+      inject_into_file("app/assets/javascripts/application.js", "//= require bootstrap-datepicker/core\n", :after => "//= require twitter/bootstrap\n")
     end
 
     def install_devise
