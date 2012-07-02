@@ -58,11 +58,11 @@ module Pollinate
     end
 
     def create_database
-      bundle_command('exec rake db:create')
+      bundle_run('exec rake db:create')
     end
 
     def migrate_database
-      bundle_command('exec rake db:migrate')
+      bundle_run('exec rake db:migrate')
     end
 
     def include_custom_gems

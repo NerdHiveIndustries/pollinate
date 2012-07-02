@@ -95,11 +95,7 @@ module Pollinate
       build(:add_devise_gem)
       build(:create_bundler_config)
       build(:configure_gemset)
-      bundle_install
-    end
-
-    def bundle_install
-      system "#{Gem.ruby} #{Gem.bin_path('bundler', 'bundle')} install"
+      bundle_run('install')
     end
 
     def setup_git
