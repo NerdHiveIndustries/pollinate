@@ -21,7 +21,7 @@ module Pollinate
 
     def finish_template
       invoke :pollinate_customization
-      super
+      # super
     end
 
     def pollinate_customization

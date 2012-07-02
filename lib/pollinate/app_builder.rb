@@ -80,8 +80,8 @@ module Pollinate
     end
 
     def configure_default_includes
-      replace_in_file "app/assets/stylesheets/application.css", "*= require require_tree .\n", ''
-      replace_in_file "app/assets/javascripts/application.js", "//= require require_tree .\n", ''
+      replace_in_file "app/assets/stylesheets/application.css", "*= require_tree .\n", ''
+      replace_in_file "app/assets/javascripts/application.js", "//= require_tree .\n", ''
     end
 
     def configure_rspec
