@@ -1,5 +1,10 @@
 module Pollinate
   module Actions
+    def bundle_exec(command)
+      say_status :run, "bundle #{command}"
+      system "#{Gem.ruby} #{Gem.bin_path('bundler', 'bundle')} #{command}"
+    end
+
     def concat_file(source, destination)
       contents = IO.read(find_in_source_paths(source))
       append_file destination, contents
@@ -20,11 +25,6 @@ module Pollinate
         "\n\n  config.action_mailer.default_url_options = { :host => '#{host}' }",
         :before => "\nend"
       )
-    end
-
-    def bundle_run(command)
-      say_status :run, "bundle #{command}"
-      system "#{Gem.ruby} #{Gem.bin_path('bundler', 'bundle')} #{command}"
     end
 
     def download_file(uri_string, destination)

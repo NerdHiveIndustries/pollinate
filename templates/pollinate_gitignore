@@ -6,4 +6,5 @@ coverage/*
 rerun.txt
 tags
 !.keep
+bin
 vendor/bundle

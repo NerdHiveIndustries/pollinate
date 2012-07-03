@@ -58,11 +58,11 @@ module Pollinate
     end
 
     def create_database
-      bundle_run('exec rake db:create')
+      bundle_exec('exec rake db:create')
     end
 
     def migrate_database
-      bundle_run('exec rake db:migrate')
+      bundle_exec('exec rake db:migrate')
     end
 
     def include_custom_gems
@@ -107,6 +107,7 @@ module Pollinate
 
     def install_ember
       generate "ember:bootstrap -g"
+      inject_into_file("config/application.rb", "config.ember.variant = :development", :after => "config.assets.version = '1.0'\n")
     end
 
     def install_tabulous
@@ -221,6 +222,10 @@ module Pollinate
       copy_file "home_controller.rb", "app/controllers/home_controller.rb"
       directory "home", "app/views/home"
       route "root :to => 'home#index'"
+    end
+
+    def bundle_install
+      bundle_exec('install')
     end
 
     # def set_attr_accessibles_on_user

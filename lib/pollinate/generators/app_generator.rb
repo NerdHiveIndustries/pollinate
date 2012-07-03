@@ -3,7 +3,6 @@ require 'rails/generators/rails/app/app_generator'
 
 module Pollinate
   class Generator < Rails::Generators::AppGenerator
-    # include Pollinate::Actions
     # let's use postgres by default
     class_option :database,       :type => :string, :aliases => "-d", :default => "postgresql",
                                   :desc => "Preconfigure for selected database (options: #{DATABASES.join('/')})"
@@ -14,14 +13,9 @@ module Pollinate
     class_option :heroku, :type => :boolean, :aliases => "-H", :default => false,
                           :desc => "Create staging and production heroku apps"
 
-    def bundle_run(command)
-      say_status :run, "bundle #{command}"
-      system "#{Gem.ruby} #{Gem.bin_path('bundler', 'bundle')} #{command}"
-    end
-
     def finish_template
       invoke :pollinate_customization
-      # super
+      super
     end
 
     def pollinate_customization
@@ -101,13 +95,13 @@ module Pollinate
       build(:add_devise_gem)
       build(:create_bundler_config)
       build(:configure_gemset)
-      bundle_run('install')
+      build(:bundle_install)
     end
 
     def setup_git
       say "Initializing git and performing initial commit"
-      invoke :setup_gitignore
-      invoke :init_git
+      build(:gitignore_files)
+      build(:init_git)
     end
 
     def create_heroku_apps
@@ -116,14 +110,6 @@ module Pollinate
         build(:create_heroku_apps)
         build(:document_heroku)
       end
-    end
-
-    def setup_gitignore
-      build(:gitignore_files)
-    end
-
-    def init_git
-      build(:init_git)
     end
 
     def copy_miscellaneous_files
