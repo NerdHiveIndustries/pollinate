@@ -79,7 +79,6 @@ module Pollinate
       build(:configure_action_mailer)
       build(:configure_default_includes)
       build(:install_rspec)
-      build(:install_ember)
       build(:install_cucumber)
       build(:install_bootstrap)
       build(:install_formtastic)
@@ -87,6 +86,7 @@ module Pollinate
       build(:install_factory_girl_steps)
       build(:add_email_validator)
       build(:setup_default_rake_task)
+      build(:install_ember)
     end
 
     def customize_gemfile
