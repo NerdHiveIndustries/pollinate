@@ -5,5 +5,5 @@ test_project
 tmp/aruba
 *.gem
 .bundle
-bin
+bin_stubs
 vendor
