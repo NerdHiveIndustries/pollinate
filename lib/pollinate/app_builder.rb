@@ -213,7 +213,7 @@ module Pollinate
     def install_devise
       generate "devise:install"
       generate "devise User"
-      generate "devise:views -e erb"
+      generate "devise:views"
       run "for i in `find app/views/devise -name '*.erb'` ; do html2haml -e $i ${i%erb}haml ; rm $i ; done"
       run "for i in `find app/views/devise -name '*.haml'` ; do haml2slim $i ${i%haml}slim ; rm $i ; done"
     end
