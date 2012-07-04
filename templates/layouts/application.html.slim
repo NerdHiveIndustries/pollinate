@@ -28,7 +28,7 @@ html
         /! /row
         hr
         footer
-        p= raw'&copy; ' + "#{Time.now.year}"
+        p= raw"&copy; #{Time.now.year}"
       /! /content
     /! /container
     /!
@@ -39,6 +39,6 @@ html
 
     = yield :javascript
 
-    =  if Rails.env.test?
+    = if Rails.env.test?
          = javascript_tag do
            '$.ajaxSetup({ async: false });'
