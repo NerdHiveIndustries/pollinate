@@ -5,5 +5,7 @@ test_project
 tmp/aruba
 *.gem
 .bundle
+.rvmrc
+Gemfile.lock
 bin_stubs
 vendor

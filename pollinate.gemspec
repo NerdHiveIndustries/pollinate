@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = "Generate a Rails app using NerdHive Industries' best practices."
 
   s.description = <<-HERE
-Pollinate is a base Rails project that you can upgrade. It is used by
+Pollinate is a base Rails project based on suspenders by ThoughtBot that you can upgrade. It is used by
 NerdHive Industries, LLC to get a jump start on a working app.
   HERE
 
@@ -24,13 +24,13 @@ NerdHive Industries, LLC to get a jump start on a working app.
   s.require_paths = ["lib"]
 
   s.rdoc_options = ["--charset=UTF-8"]
-  s.extra_rdoc_files = %w[README.md LICENSE]
+  s.extra_rdoc_files = %w[LICENSE]
 
-  s.add_dependency('rails', '3.2.6')
+  s.add_dependency('rails', '>=3.2.6')
   s.add_dependency('bundler', '>= 1.1.4')
-  s.add_dependency('html2haml', '>= 1.0.0.beta.1')
-  s.add_dependency('haml2slim', '>= 0.4.6')
 
+  s.add_development_dependency('html2haml', '>= 1.0.0.beta.1')
+  s.add_development_dependency('haml2slim', '>= 0.4.6')
   s.add_development_dependency('cucumber', '~> 1.2.1')
   s.add_development_dependency('aruba', '~> 0.4.11')
 end
