@@ -86,7 +86,7 @@ module Pollinate
       build(:install_factory_girl_steps)
       build(:add_email_validator)
       build(:setup_default_rake_task)
-      build(:install_ember)
+      # build(:install_ember)
     end
 
     def customize_gemfile

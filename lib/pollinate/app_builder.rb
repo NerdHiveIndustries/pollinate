@@ -72,7 +72,7 @@ module Pollinate
     end
 
     def add_bootstrap_gem
-      inject_into_file("Gemfile", "\ngem 'less-rails'\ngem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails'", :after => /group :assets do/)
+      inject_into_file("Gemfile", "\ngem 'less-rails'\ngem 'twitter-bootstrap-rails'", :after => /group :assets do/)
     end
 
     def add_devise_gem
@@ -197,7 +197,7 @@ module Pollinate
     end
 
     def install_bootstrap
-      generate "bootstrap:install"
+      generate "bootstrap:install less"
       inject_into_file("app/assets/stylesheets/application.css", "*= require bootstrap_and_overrides\n", :after => "*= require_self\n")
       inject_into_file("app/assets/javascripts/application.js", "//= require bootstrap.js.coffee\n", :after => "//= require twitter/bootstrap\n")
     end
