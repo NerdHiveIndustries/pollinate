@@ -76,7 +76,7 @@ module Pollinate
     end
 
     def add_devise_gem
-      inject_into_file("Gemfile", "\ngem 'devise'", :after => /gem 'jquery-rails'/)
+      # inject_into_file("Gemfile", "\ngem 'devise'", :after => /gem 'jquery-rails'/)
     end
 
     def configure_default_includes
@@ -94,10 +94,10 @@ module Pollinate
     end
 
     def configure_action_mailer
-      action_mailer_host "development", "#{app_name}.local"
-      action_mailer_host "test",        "example.com"
-      action_mailer_host "staging",     "staging.#{app_name}.com"
-      action_mailer_host "production",  "#{app_name}.com"
+      # action_mailer_host "development", "#{app_name}.local"
+      # action_mailer_host "test",        "example.com"
+      # action_mailer_host "staging",     "staging.#{app_name}.com"
+      # action_mailer_host "production",  "#{app_name}.com"
     end
 
     def install_rspec
@@ -106,29 +106,29 @@ module Pollinate
     end
 
     def install_ember
-      generate "ember:bootstrap -g"
-      inject_into_file("config/application.rb", "config.ember.variant = :development", :after => "config.assets.version = '1.0'\n")
+      # generate "ember:bootstrap -g"
+      # inject_into_file("config/application.rb", "config.ember.variant = :development", :after => "config.assets.version = '1.0'\n")
     end
 
     def install_tabulous
-      generate "tabs"
-      inject_into_file("app/tabs/tabulous.rb", "config.active_tab_clickable = true", :after => "# config.css.inactive_text_color = '#888'\n")
-      inject_into_file("app/tabs/tabulous.rb", "config.bootstrap_style_subtabs = true", :after => "# config.css.inactive_text_color = '#888'\n")
-      inject_into_file("app/tabs/tabulous.rb", "config.tabs_ul_class = \"nav nav-pills\"", :after => "# config.css.inactive_text_color = '#888'\n")
-      inject_into_file("app/tabs/tabulous.rb", "config.css.scaffolding = false", :after => "# config.css.inactive_text_color = '#888'\n")
+      # generate "tabs"
+      # inject_into_file("app/tabs/tabulous.rb", "config.active_tab_clickable = true", :after => "# config.css.inactive_text_color = '#888'\n")
+      # inject_into_file("app/tabs/tabulous.rb", "config.bootstrap_style_subtabs = true", :after => "# config.css.inactive_text_color = '#888'\n")
+      # inject_into_file("app/tabs/tabulous.rb", "config.tabs_ul_class = \"nav nav-pills\"", :after => "# config.css.inactive_text_color = '#888'\n")
+      # inject_into_file("app/tabs/tabulous.rb", "config.css.scaffolding = false", :after => "# config.css.inactive_text_color = '#888'\n")
     end
 
     def install_cucumber
-      generate "cucumber:install", "--rspec", "--capybara"
-      inject_into_file "features/support/env.rb",
-                       %{Capybara.save_and_open_page_path = 'tmp'\n} +
-                       %{Capybara.javascript_driver = :webkit\n},
-                       :before => %{Capybara.default_selector = :css}
+      # generate "cucumber:install", "--rspec", "--capybara"
+      # inject_into_file "features/support/env.rb",
+      #                  %{Capybara.save_and_open_page_path = 'tmp'\n} +
+      #                  %{Capybara.javascript_driver = :webkit\n},
+      #                  :before => %{Capybara.default_selector = :css}
     end
 
     def install_factory_girl_steps
-      copy_file "factory_girl_steps.rb", "features/step_definitions/factory_girl_steps.rb"
-    end
+      # copy_file "factory_girl_steps.rb", "features/step_definitions/factory_girl_steps.rb"
+   end
 
     def gitignore_files
       concat_file "pollinate_gitignore", ".gitignore"
@@ -187,7 +187,7 @@ module Pollinate
     end
 
     def add_email_validator
-      copy_file "email_validator.rb", "app/validators/email_validator.rb"
+      # copy_file "email_validator.rb", "app/validators/email_validator.rb"
     end
 
     def setup_default_rake_task
@@ -203,19 +203,19 @@ module Pollinate
     end
 
     def install_formtastic
-      generate "formtastic:install"
-      inject_into_file("config/initializers/formtastic.rb", "Formtastic::Helpers::FormHelper.builder = FormtasticBootstrap::FormBuilder\n", :after => "# Formtastic::Helpers::FormHelper.builder = MyCustomBuilder\n")
-      inject_into_file("app/assets/stylesheets/application.css", "*= require formtastic-bootstrap\n", :after => "*= require_self\n")
-      inject_into_file("app/assets/stylesheets/application.css", "*= require bootstrap-datepicker\n", :after => "*= require_self\n")
-      inject_into_file("app/assets/javascripts/application.js", "//= require bootstrap-datepicker/core\n", :after => "//= require twitter/bootstrap\n")
+      # generate "formtastic:install"
+      # inject_into_file("config/initializers/formtastic.rb", "Formtastic::Helpers::FormHelper.builder = FormtasticBootstrap::FormBuilder\n", :after => "# Formtastic::Helpers::FormHelper.builder = MyCustomBuilder\n")
+      # inject_into_file("app/assets/stylesheets/application.css", "*= require formtastic-bootstrap\n", :after => "*= require_self\n")
+      # inject_into_file("app/assets/stylesheets/application.css", "*= require bootstrap-datepicker\n", :after => "*= require_self\n")
+      # inject_into_file("app/assets/javascripts/application.js", "//= require bootstrap-datepicker/core\n", :after => "//= require twitter/bootstrap\n")
     end
 
     def install_devise
-      generate "devise:install"
-      generate "devise User"
-      generate "devise:views"
-      run "for i in `find app/views/devise -name '*.erb'` ; do html2haml -e $i ${i%erb}haml ; rm $i ; done"
-      run "for i in `find app/views/devise -name '*.haml'` ; do haml2slim $i ${i%haml}slim ; rm $i ; done"
+      # generate "devise:install"
+      # generate "devise User"
+      # generate "devise:views"
+      # run "for i in `find app/views/devise -name '*.erb'` ; do html2haml -e $i ${i%erb}haml ; rm $i ; done"
+      # run "for i in `find app/views/devise -name '*.haml'` ; do haml2slim $i ${i%haml}slim ; rm $i ; done"
     end
 
     def setup_root_route

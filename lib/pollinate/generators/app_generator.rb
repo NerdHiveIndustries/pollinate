@@ -125,7 +125,7 @@ module Pollinate
     end
 
     def outro
-      say "Congratulations! You just helped us pollinate."
+      say "Congratulations! You just pollinated a new site."
     end
 
     def run_bundle
