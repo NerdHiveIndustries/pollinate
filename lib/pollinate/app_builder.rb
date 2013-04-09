@@ -72,7 +72,7 @@ module Pollinate
     end
 
     def add_bootstrap_gem
-      inject_into_file("Gemfile", "\n  gem 'therubyracer', :platforms => :ruby\n  gem 'less-rails'\n  gem 'twitter-bootstrap-rails'", :after => /group :assets do/)
+      inject_into_file("Gemfile", "\n  gem 'less-rails'\n  gem 'twitter-bootstrap-rails'", :after => /group :assets do/)
     end
 
     def add_devise_gem
